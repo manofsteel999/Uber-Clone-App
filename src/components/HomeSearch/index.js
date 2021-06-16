@@ -37,7 +37,7 @@ const HomeSearch = () => {
 const styles = StyleSheet.create({
 	inputBox: {
 		backgroundColor: '#e7e7e7',
-		margin: 10,
+		margin: 9,
 		padding: 10,
 		flexDirection: 'row',
 		justifyContent: 'space-between',

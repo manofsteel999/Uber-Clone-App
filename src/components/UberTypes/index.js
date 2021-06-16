@@ -25,6 +25,7 @@ const UberTypes = () => {
           padding: 10,
           margin: 10,
           alignItems: 'center',
+          borderRadius: 18,
         }}>
         <Text style={{color: 'white', fontWeight: 'bold'}}>Confirm Uber</Text>
       </Pressable>

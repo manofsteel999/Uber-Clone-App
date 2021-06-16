@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TextInput, SafeAreaView} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import PlaceRow from './PlaceRow';
 
 const DestinationSearch = () => {
   const [originPlace, setOriginPlace] = useState({data: null, details: null});
@@ -34,13 +35,29 @@ const DestinationSearch = () => {
             // console.log(data, details);
           }}
           styles={{
+            // styling is a bit cumbersome cause the input box by default occupies some space in the screen to show its autocomplete text
             textInput: styles.textInput,
+            container: {
+              position: 'absolute',
+              top: 0,
+              left: 10,
+              right: 10,
+            },
+            listView: {
+              position: 'absolute',
+              top: 105,
+            },
+            separator: {
+              backgroundColor: '#efefef',
+              height: 1,
+            },
           }}
           fetchDetails
           query={{
             key: 'AIzaSyAT081Nu8sH4jiCy3A6tICeER1K6rfWjMI',
             language: 'en',
           }}
+          renderRow={(data: GooglePlaceData) => <PlaceRow data={data} />}
         />
 
         <GooglePlacesAutocomplete
@@ -57,15 +74,32 @@ const DestinationSearch = () => {
             });
             // console.log(data, details);
           }}
+          //  suppressDefaultStyles
           styles={{
             textInput: styles.textInput,
+            container: {
+              position: 'absolute',
+              top: 50,
+              left: 10,
+              right: 10,
+            },
+            separator: {
+              backgroundColor: '#efefef',
+              height: 1,
+            },
           }}
           fetchDetails
           query={{
             key: 'AIzaSyAT081Nu8sH4jiCy3A6tICeER1K6rfWjMI',
             language: 'en',
           }}
+          renderRow={(data: GooglePlaceData) => <PlaceRow data={data} />}
         />
+        {/* adding that circle and sqaure and joining them with a line */}
+
+        <View style={styles.circle} />
+        <View style={styles.line} />
+        <View style={styles.square} />
       </View>
     </SafeAreaView>
   );
@@ -80,6 +114,32 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#eee',
     marginVertical: 5,
+    marginLeft: 20,
+  },
+  circle: {
+    width: 6,
+    height: 6,
+    backgroundColor: 'black',
+    position: 'absolute',
+    top: 20,
+    left: 15,
+    borderRadius: 5,
+  },
+  line: {
+    width: 1,
+    height: 50,
+    backgroundColor: '#c4c4c4',
+    position: 'absolute',
+    top: 28,
+    left: 17,
+  },
+  square: {
+    width: 6,
+    height: 6,
+    backgroundColor: 'black',
+    position: 'absolute',
+    top: 80,
+    left: 15,
   },
 });
 

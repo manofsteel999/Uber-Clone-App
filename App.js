@@ -24,8 +24,8 @@ import SearchResults from './src/screens/SearchResults/index';
 const App: () => Node = () => {
   return (
     <>
-      <StatusBar barStyle="lightpink-content" />
-      <SearchResults />
+      <StatusBar barStyle="dark-content" />
+      <DestinationSearch />
     </>
   );
 };
