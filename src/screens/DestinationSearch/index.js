@@ -3,6 +3,15 @@ import {View, Text, StyleSheet, TextInput, SafeAreaView} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import PlaceRow from './PlaceRow';
 
+const homePlace = {
+  description: 'Home',
+  geometry: {location: {lat: 48.8152937, lng: 2.4597668}},
+};
+const workPlace = {
+  description: 'Work',
+  geometry: {location: {lat: 48.8496818, lng: 2.2940881}},
+};
+
 const DestinationSearch = () => {
   const [originPlace, setOriginPlace] = useState({data: null, details: null});
   const [destinationPlace, setDestinationPlace] = useState({
@@ -12,7 +21,7 @@ const DestinationSearch = () => {
 
   useEffect(() => {
     console.log('useEffect triggered');
-    if (originPlace && destinationPlace) {
+    if (originPlace.data != null && destinationPlace.data != null) {
       console.log('Redirect to results');
     }
   }, [originPlace, destinationPlace]);
@@ -58,6 +67,12 @@ const DestinationSearch = () => {
             language: 'en',
           }}
           renderRow={(data: GooglePlaceData) => <PlaceRow data={data} />}
+          renderDescription={(data: DescriptionRow) =>
+            data.description || data.vicinity
+          }
+          currentLocation={true}
+          currentLocationLabel="Current location"
+          predefinedPlaces={[homePlace, workPlace]}
         />
 
         <GooglePlacesAutocomplete
