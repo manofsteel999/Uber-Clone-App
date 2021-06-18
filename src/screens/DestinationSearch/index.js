@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TextInput, SafeAreaView} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import PlaceRow from './PlaceRow';
+import {useNavigation} from '@react-navigation/native';
 
 const homePlace = {
   description: 'Home',
@@ -13,16 +14,19 @@ const workPlace = {
 };
 
 const DestinationSearch = () => {
-  const [originPlace, setOriginPlace] = useState({data: null, details: null});
-  const [destinationPlace, setDestinationPlace] = useState({
-    data: null,
-    details: null,
-  });
+  const navigation = useNavigation();
+
+  const [originPlace, setOriginPlace] = useState(null);
+  const [destinationPlace, setDestinationPlace] = useState(null);
 
   useEffect(() => {
-    console.log('useEffect triggered');
-    if (originPlace.data != null && destinationPlace.data != null) {
-      console.log('Redirect to results');
+    // console.log('useEffect triggered');
+    if (originPlace != null && destinationPlace != null) {
+      // console.warn('Go to results!');
+      navigation.navigate('SearchResults', {
+        originPlace,
+        destinationPlace,
+      });
     }
   }, [originPlace, destinationPlace]);
 
