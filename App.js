@@ -10,7 +10,7 @@
  */
 
 import 'react-native-gesture-handler';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -22,6 +22,8 @@ import {
   View,
   PermissionsAndroid,
   Platform,
+  TextInput,
+  Button,
 } from 'react-native';
 
 import Router from './src/navigation/Root';

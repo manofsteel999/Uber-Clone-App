@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen/index';
 import DestinationSearch from '../screens/DestinationSearch/index';
 import SearchResults from '../screens/SearchResults/index';
+import SignUp from '../components/Signup/SignUp';
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,8 @@ const HomeNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName={'Home'}>
+      initialRouteName={'SignUp'}>
+      <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="DestinationSearch" component={DestinationSearch} />
       <Stack.Screen name="SearchResults" component={SearchResults} />

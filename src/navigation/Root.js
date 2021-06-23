@@ -6,12 +6,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeNavigator from './Home';
+import CustomDrawer from './CustomDrawer';
 
 const Drawer = createDrawerNavigator();
 
 const DummyScreen = props => {
   return (
-    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>{props.name}</Text>
     </View>
   );
@@ -20,7 +21,7 @@ const DummyScreen = props => {
 const RootNavigator = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator>
+      <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}>
         <Drawer.Screen name="Home" component={HomeNavigator} />
 
         <Drawer.Screen name="Your Trips">
