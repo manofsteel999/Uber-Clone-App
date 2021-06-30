@@ -4,23 +4,22 @@ import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 
 const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const [confirm, setConfirm] = useState(null);
 
   const [code, setCode] = useState('');
 
+  const [user, setUser] = useState();
+
   const navigation = useNavigation();
 
-  const signupHandler = async (mail, pass) => {
-    try {
-      await auth().createUserWithEmailAndPassword(mail, pass);
-      navigation.navigate('Home');
-    } catch (err) {
-      console.log(err);
+  auth().onAuthStateChanged(user => {
+    if (user) {
+      setUser(user);
+      console.log(user);
+    } else {
+      console.log('User is not logged in');
     }
-  };
+  });
 
   async function signInWithPhoneNumber(phoneNumber) {
     const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
@@ -41,26 +40,7 @@ const Signup = () => {
       <Text style={{fontSize: 25, fontWeight: 'bold', alignSelf: 'center'}}>
         Sign Up Here
       </Text>
-      <View style={styles.labelContainer}>
-        <Text style={styles.label}>Enter Email : </Text>
-        <TextInput
-          placeholder="email"
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-        />
-      </View>
-      <View style={styles.labelContainer}>
-        <Text style={styles.label}>Enter Password : </Text>
-        <TextInput
-          placeholder="password"
-          style={styles.input}
-          value={password}
-          onChangeText={setPassword}
-        />
-      </View>
 
-      <Button title="Sign Up" onPress={() => signupHandler(email, password)} />
       {/* Phone number sign in method */}
 
       <Button

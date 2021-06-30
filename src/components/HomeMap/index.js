@@ -1,9 +1,40 @@
-import React from 'react';
-import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+	View,
+	Text,
+	StyleSheet,
+	Image,
+	FlatList,
+	ActivityIndicator,
+} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
-import cars from '../../assets/data/cars';
+// import cars from '../../assets/data/cars';
+import firestore from '@react-native-firebase/firestore';
 
 const HomeMap = () => {
+	const [cars, setCars] = useState([]);
+
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		const subscriber = firestore()
+			.collection('car')
+			.get()
+			.then(querySnapshot => {
+				// console.log('Total  cars: ', querySnapshot.size);
+				const cpycars = [];
+				querySnapshot.forEach(documentSnapshot => {
+					// console.log('Car ID: ', documentSnapshot.id, documentSnapshot.data());
+
+					cpycars.push({...documentSnapshot.data(), id: documentSnapshot.id});
+				});
+				setCars(cpycars);
+				setLoading(false);
+			});
+
+		return () => subscriber();
+	}, []);
+
 	const getImage = type => {
 		if (type == 'UberX') {
 			return require('../../assets/images/top-UberX.png');
@@ -15,6 +46,10 @@ const HomeMap = () => {
 			return require('../../assets/images/top-UberXL.png');
 		}
 	};
+
+	if (loading) {
+		return <ActivityIndicator />;
+	}
 
 	return (
 		<View>

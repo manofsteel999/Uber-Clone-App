@@ -58,7 +58,7 @@ const CustomDrawer = props => {
 
         <TouchableOpacity
           onPress={() => {
-            console.warn('make money');
+            console.log('Logged Out');
           }}>
           <Text style={{marginTop: 15, fontSize: 15, color: 'white'}}>
             Logout
