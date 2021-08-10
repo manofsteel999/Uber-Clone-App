@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen/index';
 import DestinationSearch from '../screens/DestinationSearch/index';
 import SearchResults from '../screens/SearchResults/index';
 import SignUp from '../components/Signup/SignUp';
+import OrderScreen from '../screens/OrderScreen/index';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const HomeNavigator = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="DestinationSearch" component={DestinationSearch} />
       <Stack.Screen name="SearchResults" component={SearchResults} />
+      <Stack.Screen name="OrderPage" component={OrderScreen} />
     </Stack.Navigator>
   );
 };

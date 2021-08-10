@@ -25,6 +25,27 @@ const SearchResults = () => {
     }
     try {
       const uid = user.uid;
+      var newDocRef = firestore().collection(uid).doc();
+      newDocRef
+        .set({
+          createdAt: date.toISOString(),
+          type: type,
+          originLatitude: originPlace.details.geometry.location.lat,
+          originLongitude: originPlace.details.geometry.location.lng,
+
+          destLatitude: destinationPlace.details.geometry.location.lat,
+          destLongitude: destinationPlace.details.geometry.location.lat,
+
+          carId: '',
+          status: 'NEW',
+          id: newDocRef.id,
+          user: {
+            rating: '5.0',
+            name: 'Avinesh',
+          },
+        })
+        // ignore below method because in above one iam simultaneously attaching id field to doc. id in process of adding data
+        /*
       firestore()
         .collection(uid)
         .add({
@@ -37,7 +58,14 @@ const SearchResults = () => {
           destLongitude: destinationPlace.details.geometry.location.lat,
 
           carId: '',
+          status: 'NEW',
+          id: '',
+          user: {
+            rating: '5.0',
+            name: 'Avinesh'
+          }
         })
+        */
         .then(() => {
           console.log('User Added');
         });
@@ -45,7 +73,7 @@ const SearchResults = () => {
       Alert.alert('Hurray', 'Your Order has been submitted', [
         {
           text: 'Go Home',
-          onPress: () => navigation.navigate('Home'),
+          onPress: () => navigation.navigate('OrderPage', {id: newDocRef.id}),
         },
       ]);
     } catch (e) {
