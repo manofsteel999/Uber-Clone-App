@@ -3,7 +3,10 @@ import {View, Text, StyleSheet, FlatList, Pressable} from 'react-native';
 import UberTypeRow from '../UberTypeRow/index';
 import typesData from '../../assets/data/types';
 
-const UberTypes = () => {
+const UberTypes = ({typeState, onSubmit}) => {
+  // Accepting the whole state functinality from a parent component
+  const [selectedType, setSelectedType] = typeState;
+
   const confirm = () => {
     console.warn('Uber Confirmed');
   };
@@ -14,12 +17,17 @@ const UberTypes = () => {
         data={typesData}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <UberTypeRow type={item.type} price={item.price} />
+          <UberTypeRow
+            type={item.type}
+            price={item.price}
+            isSelected={item.type === selectedType}
+            onPress={() => setSelectedType(item.type)}
+          />
         )}
       />
 
       <Pressable
-        onPress={confirm}
+        onPress={onSubmit}
         style={{
           backgroundColor: 'black',
           padding: 10,

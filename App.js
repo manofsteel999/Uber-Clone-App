@@ -5,8 +5,12 @@
  * @format
  * @flow strict-local
  */
+/* 
+ Always use geolocation services and not simply geolocation as everything will be taken care of
+ */
 
-import React, {useEffect} from 'react';
+import 'react-native-gesture-handler';
+import React, {useEffect, useState} from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -18,11 +22,13 @@ import {
   View,
   PermissionsAndroid,
   Platform,
+  TextInput,
+  Button,
 } from 'react-native';
-import HomeScreen from './src/screens/HomeScreen/index';
-import DestinationSearch from './src/screens/DestinationSearch/index';
-import SearchResults from './src/screens/SearchResults/index';
-navigator.geolocation = require('@react-native-community/geolocation');
+
+import Router from './src/navigation/Root';
+
+navigator.geolocation = require('react-native-geolocation-service');
 // import Geolocation from '@react-native-community/geolocation';
 
 const App: () => Node = () => {
@@ -59,7 +65,7 @@ const App: () => Node = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <DestinationSearch />
+      <Router />
     </>
   );
 };
